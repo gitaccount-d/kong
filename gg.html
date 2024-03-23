@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clickable Items with Prices</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9; /* Background color for the entire page */
+        }
+        .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 20px;
+        }
+        .items {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            margin-right: 10px;
+            background-color: #e6ffe6; /* Strong green background color */
+        }
+        .bottom-items, .top-items {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .item {
+            display: inline-block;
+            margin-right: 10px;
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: #014401; /* Stronger green background color */
+            border: 1px solid #009900; /* Darker green border color */
+            cursor: pointer;
+            width: calc(30% - 10px);
+            text-align: center;
+            line-height: 40px;
+            box-sizing: border-box;
+            border-radius: 20px; /* Rounded corners for the items */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Box shadow for the items */
+            color: #fff; /* Text color for the items */
+            transition: background-color 0.3s ease; /* Smooth transition */
+        }
+        .item:hover {
+            background-color: #00b300; /* Darker green on hover */
+        }
+        .item.selected {
+            background-color: #009900; /* Dark green when selected */
+        }
+        .price {
+            font-size: 0.8em;
+            margin-top: 5px;
+            color: #fff; /* Text color for the price */
+        }
+        #selectedItems {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="top-items" id="topItems">
+        <!-- New items with strong green color and name Launge Professor -->
+        <div class="item" data-price="20.00">Launge Professor<div class="price">$20.00</div></div>
+        <div class="item" data-price="15.00">Launge Professor<div class="price">$15.00</div></div>
+        <div class="item" data-price="25.00">Launge Professor<div class="price">$25.00</div></div>
+        <!-- End of new items -->
+        <div class="item" data-price="10.00">Top 1<div class="price">$10.00</div></div>
+        <div class="item" data-price="12.00">Top 2<div class="price">$12.00</div></div>
+        <div class="item" data-price="18.00">Top 3<div class="price">$18.00</div></div>
+        <div class="item" data-price="14.00">Top 4<div class="price">$14.00</div></div>
+        <div class="item" data-price="22.00">Top 5<div class="price">$22.00</div></div>
+        <div class="item" data-price="30.00">Top 6<div class="price">$30.00</div></div>
+        <div class="item" data-price="17.00">Top 7<div class="price">$17.00</div></div>
+        <div class="item" data-price="16.00">Top 8<div class="price">$16.00</div></div>
+        <div class="item" data-price="28.00">Top 9<div class="price">$28.00</div></div>
+        <div class="item" data-price="20.00">Top 10<div class="price">$20.00</div></div>
+    </div>
+    <div class="container">
+        <div class="items left-items">
+            <div class="item" data-price="10.00">Left 1<div class="price">$10.00</div></div>
+            <div class="item" data-price="12.00">Left 2<div class="price">$12.00</div></div>
+            <div class="item" data-price="18.00">Left 3<div class="price">$18.00</div></div>
+            <div class="item" data-price="14.00">Left 4<div class="price">$14.00</div></div>
+            <div class="item" data-price="22.00">Left 5<div class="price">$22.00</div></div>
+            <div class="item" data-price="30.00">Left 6<div class="price">$30.00</div></div>
+            <div class="item" data-price="17.00">Left 7<div class="price">$17.00</div></div>
+            <div class="item" data-price="16.00">Left 8<div class="price">$16.00</div></div>
+            <div class="item" data-price="28.00">Left 9<div class="price">$28.00</div></div>
+            <div class="item" data-price="20.00">Left 10<div class="price">$20.00</div></div>
+        </div>
+        <div class="items right-items">
+            <div class="item" data-price="15.00">Right 1<div class="price">$15.00</div></div>
+            <div class="item" data-price="25.00">Right 2<div class="price">$25.00</div></div>
+            <div class="item" data-price="10.00">Right 3<div class="price">$10.00</div></div>
+            <div class="item" data-price="12.00">Right 4<div class="price">$12.00</div></div>
+            <div class="item" data-price="18.00">Right 5<div class="price">$18.00</div></div>
+            <div class="item" data-price="14.00">Right 6<div class="price">$14.00</div></div>
+            <div class="item" data-price="22.00">Right 7<div class="price">$22.00</div></div>
+            <div class="item" data-price="30.00">Right 8<div class="price">$30.00</div></div>
+            <div class="item" data-price="17.00">Right 9<div class="price">$17.00</div></div>
+            <div class="item" data-price="16.00">Right 10<div class="price">$16.00</div></div>
+        </div>
+    </div>
+    <div class="bottom-items" id="bottomItems">
+        <div id="selectedItems"></div>
+        Total Price: $<span id="totalPrice">0.00</span>
+    </div>
+
+    <script>
+        // Add click event listener to all items
+        const items = document.querySelectorAll('.item');
+        const totalPriceDisplay = document.getElementById('totalPrice');
+        const selectedItemsDisplay = document.getElementById('selectedItems');
+        let totalPrice = 0.00;
+        let selectedItems = [];
+
+        items.forEach(item => {
+            item.addEventListener('click', () => {
+                const price = parseFloat(item.getAttribute('data-price'));
+                totalPrice += price;
+                totalPriceDisplay.textContent = totalPrice.toFixed(2);
+
+                if (!selectedItems.includes(item.textContent)) {
+                    selectedItems.push(item.textContent);
+                    item.classList.add('selected');
+                    selectedItemsDisplay.innerHTML = selectedItems.join('<br>');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

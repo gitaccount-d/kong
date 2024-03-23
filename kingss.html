@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cafe Menu</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 36px;
+            color: #66ff66; /* Light green */
+            margin-top: 20px;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .item {
+            width: 200px;
+            background-color: #00cc00;
+            border: 1px solid #009900;
+            border-radius: 20px;
+            padding: 10px;
+            margin: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .item:hover {
+            background-color: #00b300;
+        }
+
+        .choices {
+            display: none;
+            position: absolute;
+            background-color: yellow;
+            min-width: 100px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            padding: 10px;
+            z-index: 1;
+        }
+
+        .item:hover .choices {
+            display: block;
+        }
+
+        .choices a {
+            display: block;
+            color: black;
+            padding: 8px 0;
+            text-decoration: none;
+        }
+
+        .choices a:hover {
+            background-color: #f1f1f1;
+        }
+
+        #selectedItems {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            width: 300px;
+            margin: auto;
+        }
+
+        #selectedItems h2 {
+            margin-bottom: 10px;
+        }
+
+        #totalPrice {
+            font-weight: bold;
+        }
+
+        #buttonContainer {
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #66ff66;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #4ddb4d;
+        }
+    </style>
+</head>
+<body>
+    <h1>Professor's Cafe</h1>
+
+    <div class="container">
+        <!-- Left items -->
+        <div class="items">
+            <div class="item" data-price="10.00">Pasta
+                <div class="choices">
+                    <a href="#" data-price="90.00">Pasta Dabo</a>
+                    <a href="#" data-price="60.00">Pasta Engera</a>
+                </div>
+            </div>
+            <!-- Add more left items here -->
+            <div class="item" data-price="10.00">Left 1
+                <div class="choices">
+                    <a href="#" data-price="5.00">Option 1</a>
+                    <a href="#" data-price="6.00">Option 2</a>
+                </div>
+            </div>
+            <!-- Add more left items here -->
+            <div class="item" data-price="10.00">Left 2
+                <div class="choices">
+                    <a href="#" data-price="5.00">Option 1</a>
+                    <a href="#" data-price="6.00">Option 2</a>
+                </div>
+            </div>
+            <!-- Add more left items here -->
+        </div>
+
+        <!-- Right items -->
+        <div class="items">
+            <!-- Add right items here -->
+            <div class="item" data-price="10.00">Right 1
+                <div class="choices">
+                    <a href="#" data-price="5.00">Option 1</a>
+                    <a href="#" data-price="6.00">Option 2</a>
+                </div>
+            </div>
+            <!-- Add more right items here -->
+            <div class="item" data-price="10.00">Right 2
+                <div class="choices">
+                    <a href="#" data-price="5.00">Option 1</a>
+                    <a href="#" data-price="6.00">Option 2</a>
+                </div>
+            </div>
+            <!-- Add more right items here -->
+        </div>
+
+        <!-- Bottom items -->
+        <div class="items">
+            <!-- Add bottom items here -->
+            <div class="item" data-price="10.00">Bottom 1
+                <div class="choices">
+                    <a href="#" data-price="5.00">Option 1</a>
+                    <a href="#" data-price="6.00">Option 2</a>
+                </div>
+            </div>
+            <!-- Add more bottom items here -->
+            <div class="item" data-price="10.00">Bottom 2
+                <div class="choices">
+                    <a href="#" data-price="5.00">Option 1</a>
+                    <a href="#" data-price="6.00">Option 2</a>
+                </div>
+            </div>
+            <!-- Add more bottom items here -->
+        </div>
+    </div>
+
+    <div id="selectedItems">
+        <h2>Selected Items</h2>
+        <ul id="selectedItemList"></ul>
+        <p>Total Price: $<span id="totalPrice">0.00</span></p>
+    </div>
+
+    <div id="buttonContainer">
+        <button onclick="printInfo()">Print Info</button>
+        <button onclick="resetPage()">Reset Page</button>
+    </div>
+
+    <script>
+        const selectedItemsList = document.getElementById('selectedItemList');
+        const totalPriceDisplay = document.getElementById('totalPrice');
+        let totalPrice = 0.00;
+
+        function addSelectedItem(itemName, price) {
+            const listItem = document.createElement('li');
+            listItem.textContent = `${itemName} - $${price.toFixed(2)}`;
+            selectedItemsList.appendChild(listItem);
+        }
+
+        function updateTotalPrice(price) {
+            totalPrice += price;
+            totalPriceDisplay.textContent = totalPrice.toFixed(2);
+        }
+
+        function printInfo() {
+            const selectedItems = document.getElementById('selectedItemList').innerHTML;
+            const totalPrice = document.getElementById('totalPrice').innerHTML;
+            const printContent = `<h2>Selected Items</h2>${selectedItems}<p>Total Price: ${totalPrice}</p>`;
+            const originalContent = document.body.innerHTML;
+            document.body.innerHTML = printContent;
+            window.print();
+            document.body.innerHTML = originalContent;
+        }
+
+        function resetPage() {
+            location.reload();
+        }
+
+        const items = document.querySelectorAll('.item');
+        items.forEach(item => {
+            const choices = item.querySelector('.choices');
+            choices.addEventListener('click', (event) => {
+                event.stopPropagation();
+                const optionPrice = parseFloat(event.target.getAttribute('data-price'));
+                addSelectedItem(event.target.textContent, optionPrice);
+                updateTotalPrice(optionPrice);
+            });
+        });
+    </script>
+</body>
+</html>

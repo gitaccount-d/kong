@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clickable Items with Prices</title>
+    <style>
+         body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url(ff.jpg);
+            /* Replace 'your-background-image-url.jpg' with the URL of your image */
+            background-size: cover;
+            /* Adjust background size as needed */
+            background-repeat: no-repeat;
+            /* Prevent background image from repeating */
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 20px;
+        }
+
+        .items {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            margin-right: 10px;
+            background-color: #e6ffe6;
+        }
+
+        .item {
+            display: inline-block;
+            margin-right: 10px;
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: #00cc00;
+            border: 1px solid #009900;
+            cursor: pointer;
+            text-align: center;
+            line-height: 40px;
+            box-sizing: border-box;
+            border-radius: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            color: #fff;
+            transition: background-color 0.3s ease;
+            white-space: nowrap;
+            position: relative;
+        }
+
+        .item:hover {
+            background-color: #00b300;
+        }
+
+        .choices {
+            display: none;
+            position: absolute;
+            background-color: yellow;
+            min-width: inherit;
+            box-shadow: inherit;
+            padding: inherit;
+            z-index: 1;
+            top: inherit;
+            left: inherit;
+            border-radius: inherit;
+        }
+
+        .item:hover .choices {
+            display: block;
+        }
+
+        .choices a {
+            color: black;
+            padding: 8px 0;
+            text-decoration: none;
+            display: block;
+        }
+
+        .choices a:hover {
+            background-color: #f1f1f1;
+        }
+
+        #selectedItems {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Left items -->
+        <div class="items left-items">
+            <div class="item" data-price="10.00">pasta
+                <div class="choices">
+                    <a href="#" data-price="5.00">pasta dabo</a>
+                    <a href="#" data-price="6.00">pasta engera</a>
+                </div>
+            </div>
+            <!-- Add more left items here -->
+            <div class="item" data-price="12.00">Left 2
+                <div class="choices">
+                    <a href="#" data-price="7.00">Option 1</a>
+                    <a href="#" data-price="8.00">Option 2</a>
+                </div>
+            </div>
+            <!-- Add more left items here -->
+            <div class="item" data-price="14.00">Left 3
+                <div class="choices">
+                    <a href="#" data-price="9.00">Option 1</a>
+                    <a href="#" data-price="10.00">Option 2</a>
+                </div>
+            </div>
+            <!-- Add more left items here -->
+            <div class="item" data-price="16.00">Left 4
+                <div class="choices">
+                    <a href="#" data-price="11.00">Option 1</a>
+                    <a href="#" data-price="12.00">Option 2</a>
+                </div>
+            </div>
+            <!-- Add more left items here -->
+            <div class="item" data-price="18.00">Left 5
+                <div class="choices">
+                    <a href="#" data-price="13.00">Option 1</a>
+                    <a href="#" data-price="14.00">Option 2</a>
+                </div>
+            </div>
+            <!-- Add more left items here -->
+            <div class="item" data-price="20.00">Left 6
+                <div class="choices">
+                    <a href="#" data-price="15.00">Option 1</a>
+                    <a href="#" data-price="16.00">Option 2</a>
+                </div>
+            </div>
+            <!-- Add more left items here -->
+            <div class="item" data-price="22.00">Left 7
+                <div class="choices">
+                    <a href="#" data-price="17.00">Option 1</a>
+                    <a href="#" data-price="18.00">Option 2</a>
+                </div>
+            </div>
+            <!-- Add more left items here -->
+            <div class="item" data-price="24.00">Left 8
+                <div class="choices">
+                    <a href="#" data-price="19.00">Option 1</a>
+                    <a href="#" data-price="20.00">Option 2</a>
+                </div>
+            </div>
+            <!-- Add more left items here -->
+            <div class="item" data-price="26.00">Left 9
+                <div class="choices">
+                    <a href="#" data-price="21.00">Option 1</a>
+                    <a href="#" data-price="22.00">Option 2</a>
+                </div>
+            </div>
+            <!-- Add more left items here -->
+            <div class="item" data-price="28.00">Left 10
+                <div class="choices">
+                    <a href="#" data-price="23.00">Option 1</a>
+                    <a href="#" data-price="24.00">Option 2</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right items -->
+        <div class="items right-items">
+            <!-- Right items -->
+            <div class="item" data-price="10.00">Right 1
+                <div class="choices">
+                    <a href="#" data-price="5.00">Option 1</a>
+                    <a href="#" data-price="6.00">Option 2</a>
+                </div>
+            </div>
+            <!-- Add more right items here -->
+            <div class="item" data-price="12.00">Right 2
+                <div class="choices">
+                    <a href="#" data-price="7.00">Option 1</a>
+                    <a href="#" data-price="8.00">Option 2</a>
+                </div>
+            </div>
+            <!-- Add more right items here -->
+            <div class="item" data-price="14.00">Right 3
+                <div class="choices">
+                    <a href="#" data-price="9.00">Option 1</a>
+                    <a href="#" data-price="10.00">Option 2</a>
+                </div>
+            </div>
+            <!-- Add more right items here -->
+            <div class="item" data-price="16.00">Right 4
+                <div class="choices">
+                    <a href="#" data-price="11.00">Option 1</a>
+                    <a href="#" data-price="12.00">Option 2</a>
+                </div>
+            </div>
+            <!-- Add more right items here -->
+            <div class="item" data-price="18.00">Right 5
+                <div class="choices">
+                    <a href="#" data-price="13.00">Option 1</a>
+                    <a href="#" data-price="14.00">Option 2</a>
+                </div>
+            </div>
+            <!-- Add more right items here -->
+            <div class="item" data-price="20.00">Right 6
+                <div class="choices">
+                    <a href="#" data-price="15.00">Option 1</a>
+                    <a href="#" data-price="16.00">Option 2</a>
+                </div>
+            </div>
+            <!-- Add more right items here -->
+            <div class="item" data-price="22.00">Right 7
+                <div class="choices">
+                    <a href="#" data-price="17.00">Option 1</a>
+                    <a href="#" data-price="18.00">Option 2</a>
+                </div>
+            </div>
+            <!-- Add more right items here -->
+            <div class="item" data-price="24.00">Right 8
+                <div class="choices">
+                    <a href="#" data-price="19.00">Option 1</a>
+                    <a href="#" data-price="20.00">Option 2</a>
+                </div>
+            </div>
+            <!-- Add more right items here -->
+            <div class="item" data-price="26.00">Right 9
+                <div class="choices">
+                    <a href="#" data-price="21.00">Option 1</a>
+                    <a href="#" data-price="22.00">Option 2</a>
+                </div>
+            </div>
+            <!-- Add more right items here -->
+            <div class="item" data-price="28.00">Right 10
+                <div class="choices">
+                    <a href="#" data-price="23.00">Option 1</a>
+                    <a href="#" data-price="24.00">Option 2</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom items -->
+        <div class="items bottom-items">
+            <!-- Bottom items -->
+            <div class="item" data-price="10.00">Bottom 1
+                <div class="choices">
+                    <a href="#" data-price="5.00">Option 1</a>
+                    <a href="#" data-price="6.00">Option 2</a>
+                </div>
+            </div>
+            <!-- Add more bottom items here -->
+            <div class="item" data-price="12.00">Bottom 2
+                <div class="choices">
+                    <a href="#" data-price="7.00">Option 1</a>
+                    <a href="#" data-price="8.00">Option 2</a>
+                </div>
+            </div>
+            <!-- Add more bottom items here -->
+            <div class="item" data-price="14.00">Bottom 3
+                <div class="choices">
+                    <a href="#" data-price="9.00">Option 1</a>
+                    <a href="#" data-price="10.00">Option 2</a>
+                </div>
+            </div>
+            <!-- Add more bottom items here -->
+            <div class="item" data-price="16.00">Bottom 4
+                <div class="choices">
+                    <a href="#" data-price="11.00">Option 1</a>
+                    <a href="#" data-price="12.00">Option 2</a>
+                </div>
+            </div>
+            <!-- Add more bottom items here -->
+            <div class="item" data-price="18.00">Bottom 5
+                <div class="choices">
+                    <a href="#" data-price="13.00">Option 1</a>
+                    <a href="#" data-price="14.00">Option 2</a>
+                </div>
+            </div>
+            <!-- Add more bottom items here -->
+            <div class="item" data-price="20.00">Bottom 6
+                <div class="choices">
+                    <a href="#" data-price="15.00">Option 1</a>
+                    <a href="#" data-price="16.00">Option 2</a>
+                </div>
+            </div>
+            <!-- Add more bottom items here -->
+            <div class="item" data-price="22.00">Bottom 7
+                <div class="choices">
+                    <a href="#" data-price="17.00">Option 1</a>
+                    <a href="#" data-price="18.00">Option 2</a>
+                </div>
+            </div>
+            <!-- Add more bottom items here -->
+            <div class="item" data-price="24.00">Bottom 8
+                <div class="choices">
+                    <a href="#" data-price="19.00">Option 1</a>
+                    <a href="#" data-price="20.00">Option 2</a>
+                </div>
+            </div>
+            <!-- Add more bottom items here -->
+            <div class="item" data-price="26.00">Bottom 9
+                <div class="choices">
+                    <a href="#" data-price="21.00">Option 1</a>
+                    <a href="#" data-price="22.00">Option 2</a>
+                </div>
+            </div>
+            <!-- Add more bottom items here -->
+            <div class="item" data-price="28.00">Bottom 10
+                <div class="choices">
+                    <a href="#" data-price="23.00">Option 1</a>
+                    <a href="#" data-price="24.00">Option 2</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="selectedItems">
+        <h2>Selected Items</h2>
+        <ul id="selectedItemList"></ul>
+        <p>Total Price: $<span id="totalPrice">0.00</span></p>
+    </div>
+    <script>
+        const selectedItemsList = document.getElementById('selectedItemList');
+        const totalPriceDisplay = document.getElementById('totalPrice');
+        let totalPrice = 0.00;
+
+        function addSelectedItem(itemName, price) {
+            const listItem = document.createElement('li');
+            listItem.textContent = `${itemName} - $${price.toFixed(2)}`;
+            selectedItemsList.appendChild(listItem);
+        }
+
+        function updateTotalPrice(price) {
+            totalPrice += price;
+            totalPriceDisplay.textContent = totalPrice.toFixed(2);
+        }
+
+        const items = document.querySelectorAll('.item');
+        items.forEach(item => {
+            const choices = item.querySelector('.choices');
+            choices.addEventListener('click', (event) => {
+                event.stopPropagation();
+                const optionPrice = parseFloat(event.target.getAttribute('data-price'));
+                addSelectedItem(event.target.textContent, optionPrice);
+                updateTotalPrice(optionPrice);
+            });
+        });
+    </script>
+</body>
+</html>
